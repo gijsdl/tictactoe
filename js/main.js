@@ -6,6 +6,7 @@ const playWonDisplay = document.querySelector('.player-won');
 const resetBtn = document.querySelector('.reset-btn');
 const tiles = [];
 const winConditions = [7, 56, 448, 73, 146, 292, 273, 84];
+const drawNumber = 511;
 
 let playerTurn = 'x';
 let xPoints = 0;
@@ -71,17 +72,9 @@ function checkWinCondition() {
     }
     if (winPlayer !== '') {
         gameWon(winPlayer);
-    } else {
-        let openSpace = false;
-        for(const tile of tiles){
-            if (!tile.occupied){
-                openSpace = true;
-                break;
-            }
-        }
-        if (!openSpace){
-            gameWon('Draw');
-        }
+    } else if ((xPoints + oPoints) === drawNumber) {
+
+        gameWon('Draw');
     }
 }
 
@@ -90,13 +83,14 @@ function gameWon(condition) {
     endScreen.classList.remove('hidden');
 }
 
-function reset(){
-    for (const tile of tiles){
+function reset() {
+    for (const tile of tiles) {
         tile.htmlElement.textContent = '';
         tile.htmlElement.classList.remove('occupied');
         tile.occupied = false;
     }
     xPoints = 0;
     oPoints = 0;
+    playerTurn = 'x'
     endScreen.classList.add('hidden');
 }
