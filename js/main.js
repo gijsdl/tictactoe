@@ -8,10 +8,9 @@ const tiles = [];
 const winConditions = [7, 56, 448, 73, 146, 292, 273, 84];
 const drawNumber = 511;
 
-let playerTurn = 'x';
+let playerTurn = 1;
 let xPoints = 0;
 let oPoints = 0;
-
 
 createField();
 
@@ -43,15 +42,15 @@ function createEventListeners() {
 
 function placeMark(tile) {
     if (!tile.occupied) {
-        if (playerTurn === 'x') {
+        if (playerTurn === 1) {
             xPoints += tile.value;
             tile.htmlElement.textContent = 'X'
-            playerTurn = 'o';
         } else {
             oPoints += tile.value;
             tile.htmlElement.textContent = 'O';
-            playerTurn = 'x';
         }
+        playerTurn *= -1;
+        console.log(playerTurn);
         tile.htmlElement.classList.add('occupied');
         tile.occupied = true;
     }
@@ -91,6 +90,6 @@ function reset() {
     }
     xPoints = 0;
     oPoints = 0;
-    playerTurn = 'x'
+    playerTurn = 1;
     endScreen.classList.add('hidden');
 }
